@@ -12,7 +12,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Ateros\\Pay\\": "ateros/pay/src/"
+      "Ateros\\Pay\\": "ateros/pay/src/",
+      "App\\": "app/"
     }
   }
 }
