@@ -3,17 +3,19 @@
   "description": "Integration with the Ateros payment gateway",
   "type": "library",
   "require": {},
+  "autoload": {
+    "classmap": [
+      "src/"
+    ],
+    "psr-4": {
+      "Ateros\\Pay\\": "src/"
+    }
+  },
   "extra": {
     "laravel": {
       "providers": [
         "Ateros\\Pay\\GatewayServiceProvider"
       ]
-    }
-  },
-  "autoload": {
-    "psr-4": {
-      "Ateros\\Pay\\": "ateros/pay/src/",
-      "App\\": "app/"
     }
   }
 }
