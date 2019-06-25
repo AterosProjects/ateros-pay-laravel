@@ -1,0 +1,13 @@
+{
+  "name": "ateros/pay",
+  "description": "Integration with the Ateros payment gateway",
+  "type": "library",
+  "require": {},
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ateros\\Pay\\GatewayServiceProvider"
+      ]
+    }
+  }
+}
