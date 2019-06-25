@@ -14,7 +14,6 @@ class GatewayServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__.'/routes.php';
         $this->app->make('Ateros\Pay\GatewayController');
     }
 
