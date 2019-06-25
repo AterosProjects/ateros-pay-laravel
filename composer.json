@@ -9,5 +9,10 @@
         "Ateros\\Pay\\GatewayServiceProvider"
       ]
     }
+  },
+  "autoload": {
+    "psr-4": {
+      "Ateros\\Pay": "ateros/pay/src/"
+    }
   }
 }
