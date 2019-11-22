@@ -58,11 +58,10 @@ class GatewayController extends Controller
      */
     public function handle(array $request, string $type, callable $handler)
     {
-        $body = $request->getContent();
         $this::assert(isset($this->app_token), "app_token must be set to use this function");
-        $this::assert($body['app_token'] == hash('sha256', $this->app_token), "callback message could not be verified");
+        $this::assert($request['app_token'] == hash('sha256', $this->app_token), "callback message could not be verified");
 
-        if ($this::getNamefromId($body['id']) == $type){
+        if ($this::getNamefromId($request['id']) == $type){
             $handler($request);
         }
     }
@@ -80,13 +79,13 @@ class GatewayController extends Controller
         curl_setopt($this->curl, CURLOPT_URL, $this->endpoint . "/payment");
 
         $response = curl_exec($this->curl);
+        if (!$response) {
+            throw new Exception(curl_error($this->curl), curl_errno($this->curl));
+        }
+
         curl_close($this->curl);
 
         $object = json_decode($response);
-
-        if(!$object){
-            throw new Exception('Could not connect to Ateros Pay');
-        }
 
         $object->success = $object->message == "Payment created successfully" ? True : False;
 
@@ -106,13 +105,13 @@ class GatewayController extends Controller
         curl_setopt($this->curl, CURLOPT_URL, $this->endpoint . "/subscription");
 
         $response = curl_exec($this->curl);
+        if (!$response) {
+            throw new Exception(curl_error($this->curl), curl_errno($this->curl));
+        }
+
         curl_close($this->curl);
 
         $object = json_decode($response);
-
-        if(!$object){
-            throw new Exception('Could not connect to Ateros Pay');
-        }
 
         $object->success = $object->message == "Subscription created successfully" ? True : False;
 
