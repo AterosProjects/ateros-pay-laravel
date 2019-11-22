@@ -2,10 +2,9 @@
 
 namespace Ateros\Pay;
 
-use App\Http\Controllers\Controller;
 use Exception;
 
-class GatewayController extends Controller
+class Gateway
 {
     public $endpoint = 'https://pay.ateros.fr/api';
     private $app_token;
@@ -17,8 +16,8 @@ class GatewayController extends Controller
     public function __construct()
     {
         $this->curl = curl_init();
-
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
+        $this->setAppToken(config(''));
     }
 
     /**
@@ -67,54 +66,25 @@ class GatewayController extends Controller
     }
 
     /**
+     * @param string $type
      * @param array $payment
      * @return mixed
      * @throws Exception
      */
-    public function createPayment(array $payment)
+    public function create(string $type, array $payment)
     {
-        $this::assert(isset($this->app_token), "app_token must be set to use this function");
+        $this::assert(isset($this->app_token), 'app_token must be set to use this function');
+
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $payment);
-
-        curl_setopt($this->curl, CURLOPT_URL, $this->endpoint . "/payment");
-
+        curl_setopt($this->curl, CURLOPT_URL, $this->endpoint . '/' . $type);
         $response = curl_exec($this->curl);
         if (!$response) {
             throw new Exception(curl_error($this->curl), curl_errno($this->curl));
         }
-
         curl_close($this->curl);
 
         $object = json_decode($response);
-
-        $object->success = $object->message == "Payment created successfully" ? True : False;
-
-        return $object;
-    }
-
-    /**
-     * @param array $subscription
-     * @return mixed
-     * @throws Exception
-     */
-    public function createSubscription(array $subscription)
-    {
-        $this::assert(isset($this->app_token), "app_token must be set to use this function");
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $subscription);
-
-        curl_setopt($this->curl, CURLOPT_URL, $this->endpoint . "/subscription");
-
-        $response = curl_exec($this->curl);
-        if (!$response) {
-            throw new Exception(curl_error($this->curl), curl_errno($this->curl));
-        }
-
-        curl_close($this->curl);
-
-        $object = json_decode($response);
-
-        $object->success = $object->message == "Subscription created successfully" ? True : False;
-
+        $object->success = $object->message == ucfirst($type) . ' created successfully' ? True : False;
         return $object;
     }
 

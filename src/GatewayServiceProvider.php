@@ -14,7 +14,7 @@ class GatewayServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Ateros\Pay\GatewayController');
+        $this->app->make('Ateros\Pay\Gateway');
     }
 
     /**
@@ -24,6 +24,8 @@ class GatewayServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__.'/../config/pay.php' => config_path('pay.php'),
+        ], 'ateros-pay');
     }
 }
