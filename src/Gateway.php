@@ -17,7 +17,7 @@ class Gateway
     {
         $this->curl = curl_init();
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-        $this->setAppToken(config(''));
+        $this->setAppToken(config('pay.token'));
     }
 
     /**

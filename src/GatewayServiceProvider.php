@@ -26,6 +26,6 @@ class GatewayServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/pay.php' => config_path('pay.php'),
-        ], 'ateros-payw');
+        ], 'ateros-pay');
     }
 }
