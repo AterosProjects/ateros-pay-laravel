@@ -1,5 +1,9 @@
 # Ateros Pay
 
+## Deprecation notice
+
+Deprecated. Use [https://github.com/AterosProjects/ateros-pay-laravel](https://github.com/AterosProjects/ateros-pay-laravel).
+
 ## About
 Ateros Pay is a payment gateway that allows you to accept 
 online payments coming from multiple payment processors 
@@ -7,7 +11,7 @@ online payments coming from multiple payment processors
 
 This is a Laravel plugin to interact with the 
 payment gateway. The non-Laravel version can be found at :  
-[https://github.com/anto2oo/ateros-pay-client](https://github.com/anto2oo/ateros-pay-client)
+[https://github.com/AterosProjects/ateros-pay-client](https://github.com/anto2oo/ateros-pay-client)
 
 ## Installation
 Add this to your ```composer.json``` file :
